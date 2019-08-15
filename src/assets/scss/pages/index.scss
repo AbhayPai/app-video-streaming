@@ -1,0 +1,20 @@
+$image-ap-logo: './../../images/ap-logo.jpg';
+
+body {
+    min-width: 416px !important;
+    // background-image: url($image-ap-logo);
+}
+
+.list-group {
+    .movie-item.list-group-item-primary {
+        background-color: transparent;
+
+        a {
+            color: #fff;
+            cursor: pointer;
+            border-top-left-radius: .25rem;
+            border-top-right-radius: .25rem;
+            background-color: #007bff!important;
+        }
+    }
+}
