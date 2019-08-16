@@ -1,20 +1,40 @@
 $image-ap-logo: './../../images/ap-logo.jpg';
 
+$color-red: #dc3545;
+$color-blue: #007bff;
+$color-white: #ffffff;
+$color-black: #000000;
+
 body {
     min-width: 416px !important;
     // background-image: url($image-ap-logo);
+
+    &.black-red {
+        background-color: $color-black;
+
+        .list-group-item-primary {
+            a {
+                background-color: $color-red;
+            }
+        }
+
+        .page-title {
+            color: $color-white;
+        }
+    }
 }
 
-.list-group {
-    .movie-item.list-group-item-primary {
+.movie-group,
+.theme-group {
+    .list-group-item-primary {
         background-color: transparent;
 
         a {
-            color: #fff;
+            color: $color-white;
             cursor: pointer;
             border-top-left-radius: .25rem;
             border-top-right-radius: .25rem;
-            background-color: #007bff!important;
+            background-color: $color-blue;
         }
     }
 }

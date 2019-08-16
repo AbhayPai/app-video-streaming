@@ -17,7 +17,9 @@ class RenderManager extends React.Component {
         super(props);
         this.state = {
             videoId: '',
+            theme: 'light',
         };
+        this.selectTheme = this.selectTheme.bind(this);
         this.selectMovieList = this.selectMovieList.bind(this);
     }
 
@@ -26,7 +28,11 @@ class RenderManager extends React.Component {
      *  React Lifecyle Function
      */
     render() {
-        return this.manageRender();
+        return (
+            <div className='container-fluid'>
+                {this.manageRender()}
+            </div>
+        );
     }
 
     /*
@@ -55,6 +61,7 @@ class RenderManager extends React.Component {
             selectMovieList: this.selectMovieList
         };
         const url = 'https://www.youtube.com/embed/' + this.state.videoId;
+        const classNameThemeItem = 'list-group-item list-group-item-primary text-white d-inline-block mr-1 theme-item p-0';
 
         if (this.state.videoId) {
             iframe = <Iframe
@@ -67,8 +74,7 @@ class RenderManager extends React.Component {
          *  @JSX Syntax to display
          */
         return (
-            <div className='container-fluid'>
-                <h1 className='display-4 mb-3'>Click on movie title from the list below.</h1>
+            <div>
                 <div className='row mb-3'>
                     <div className='col-12 col-sm-12'>
                         <MovieList callBack={callBack} />
@@ -79,6 +85,14 @@ class RenderManager extends React.Component {
                         {iframe}
                     </div>
                 </div>
+                <ul className='fixed-bottom list-group d-block theme-group'>
+                    <li className={classNameThemeItem}>
+                        <a className='p-2' data-theme='black-red' onClick={this.selectTheme}>Black & Red</a>
+                    </li>
+                    <li className={classNameThemeItem}>
+                        <a className='p-2' data-theme='white-blue' onClick={this.selectTheme}>White & Blue</a>
+                    </li>
+                </ul>
             </div>
         );
     }
@@ -87,6 +101,26 @@ class RenderManager extends React.Component {
         this.setState({
             videoId: event.target.getAttribute('data-video'),
         });
+    }
+
+    selectTheme(event) {
+        let bodyThemeName = '';
+
+        switch(event.target.getAttribute('data-theme')) {
+            case 'black-red':
+                bodyThemeName = event.target.getAttribute('data-theme');
+                break;
+            case 'white-blue':
+                bodyThemeName = event.target.getAttribute('data-theme');
+                break;
+            default:
+                bodyThemeName = 'white-blue';
+        }
+
+        document.body.setAttribute(
+            'class',
+            bodyThemeName
+        );
     }
 }
 
