@@ -25,7 +25,6 @@ class RenderManager extends React.Component {
         };
         this.iframe = '';
         this.streamName = this.props.streamName;
-        this.selectTheme = this.selectTheme.bind(this);
         this.selectMovieList = this.selectMovieList.bind(this);
     }
 
@@ -113,7 +112,7 @@ class RenderManager extends React.Component {
             <Fragment>
                 <MovieList callBack={this.selectMovieList} />
                 {iframe}
-                <ThemeManager callBack={this.selectTheme} />
+                <ThemeManager />
             </Fragment>
         );
     }
@@ -130,7 +129,7 @@ class RenderManager extends React.Component {
             <Fragment>
                 <VideoList callBack={this.selectMovieList} />
                 {iframe}
-                <ThemeManager callBack={this.selectTheme} />
+                <ThemeManager />
             </Fragment>
         );
     }
@@ -158,30 +157,6 @@ class RenderManager extends React.Component {
         this.setState({
             videoId: event.target.getAttribute('data-video'),
         });
-    }
-
-    /*
-     *  @selectTheme()
-     *  updates the color of according to the selection
-     */
-    selectTheme(event) {
-        let bodyThemeName = '';
-
-        switch(event.target.getAttribute('data-theme')) {
-            case 'black-red':
-                bodyThemeName = event.target.getAttribute('data-theme');
-                break;
-            case 'white-blue':
-                bodyThemeName = event.target.getAttribute('data-theme');
-                break;
-            default:
-                bodyThemeName = 'white-blue';
-        }
-
-        document.body.setAttribute(
-            'class',
-            bodyThemeName
-        );
     }
 }
 
