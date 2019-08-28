@@ -30,27 +30,12 @@ class MovieList extends React.Component {
                         <li className={movieListClass}>
                             <a className={movieAnchorClass}
                                 onClick={this.props.callBack}
-                                data-video='8FWj1ED6I6A'>Dabang 2</a>
-                        </li>
-                        <li className={movieListClass}>
-                            <a className={movieAnchorClass}
-                                onClick={this.props.callBack}
                                 data-video='dPgS6Xzxj64'>Baby</a>
                         </li>
                         <li className={movieListClass}>
                             <a className={movieAnchorClass}
                                 onClick={this.props.callBack}
                                 data-video='EACzgWlPKe4'>kick</a>
-                        </li>
-                        <li className={movieListClass}>
-                            <a className={movieAnchorClass}
-                                onClick={this.props.callBack}
-                                data-video='wtO-QE_PbJY'>Bodyguard</a>
-                        </li>
-                        <li className={movieListClass}>
-                            <a className={movieAnchorClass}
-                                onClick={this.props.callBack}
-                                data-video='xhKan-i1qoU'>Partner</a>
                         </li>
                         <li className={movieListClass}>
                             <a className={movieAnchorClass}
@@ -96,16 +81,6 @@ class MovieList extends React.Component {
                             <a className={movieAnchorClass}
                                 onClick={this.props.callBack}
                                 data-video='zB2uW7hFs1I'>Airlift</a>
-                        </li>
-                        <li className={movieListClass}>
-                            <a className={movieAnchorClass}
-                                onClick={this.props.callBack}
-                                data-video='lg2i2oqnoy0'>Singh Is Bliing</a>
-                        </li>
-                        <li className={movieListClass}>
-                            <a className={movieAnchorClass}
-                                onClick={this.props.callBack}
-                                data-video='1FT6VOrFMLo'>Phir Hera Pheri</a>
                         </li>
                         <li className={movieListClass}>
                             <a className={movieAnchorClass}
