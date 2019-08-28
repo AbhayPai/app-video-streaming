@@ -143,7 +143,12 @@ class RenderManager extends React.Component {
          */
         return (
             <Fragment>
-                <h1 className='display-2'>Stream Not Found</h1>
+                <div className='row mb-3'>
+                    <div className='col-12 col-sm-12'>
+                        <h1 className='display-4 mb-3 page-title'>Stream Not Found</h1>
+                    </div>
+                </div>
+                <ThemeManager />
             </Fragment>
         );
     }
