@@ -25,7 +25,7 @@ class Index {
          *  gets value from location param
          */
         this.streamName = new URL(location.href).searchParams.get("streamName") ||
-            'youtube';
+            '';
     }
 
     /*
@@ -43,7 +43,7 @@ class Index {
     render () {
         if (document.getElementById('app')) {
             ReactDOM.render(
-                <RenderManager stream={this.streamName} />,
+                <RenderManager streamName={this.streamName} />,
                 document.getElementById('app')
             );
         }

@@ -1,13 +1,16 @@
 /*
  *  All Usable Libraries in this File
  */
-import React from 'react';
+import PropTypes from 'prop-types';
+import React, { Fragment, Suspense } from 'react';
 
 /*
  *  All Usable React Reusable Components in this File
  */
-import Iframe from 'ComponentsPath/Youtube/Iframe';
+// import Video from 'ComponentsPath/Personal/Video';
 import MovieList from 'ComponentsPath/Youtube/MovieList';
+import VideoList from 'ComponentsPath/Personal/VideoList';
+import ThemeManager from 'ComponentsPath/Footer/ThemeManager';
 
 /*
  *  Extending React Component
@@ -15,12 +18,24 @@ import MovieList from 'ComponentsPath/Youtube/MovieList';
 class RenderManager extends React.Component {
     constructor(props) {
         super(props);
+        this.url = '';
         this.state = {
             videoId: '',
             theme: 'light',
         };
+        this.iframe = '';
+        this.streamName = this.props.streamName;
         this.selectTheme = this.selectTheme.bind(this);
         this.selectMovieList = this.selectMovieList.bind(this);
+    }
+
+    /*
+     *  @componentDidMount()
+     *  React Lifecyle Function
+     */
+    componentDidMount() {
+        // setting up page title
+        document.title = "Video App | " + this.props.streamName;
     }
 
     /*
@@ -41,11 +56,46 @@ class RenderManager extends React.Component {
      */
     manageRender() {
         switch (this.streamName) {
+            // youtube video case
             case 'youtube':
-                this.executeRenderStream = this.renderStreamYoutube();
+                if (this.state.videoId) {
+                    this.url = 'https://www.youtube.com/embed/' + this.state.videoId;
+                    const LazyLoadIframe = React.lazy(
+                        () => import('ComponentsPath/Youtube/Iframe')
+                    );
+
+                    this.iframe = <Suspense fallback={<div>Loading...</div>}>
+                        <LazyLoadIframe
+                            videoId={this.state.videoIde}
+                            url={this.url} />
+                    </Suspense>;
+                }
+
+                this.executeRenderStream = this.renderStreamYoutube(this.iframe);
                 break;
+
+            // personal video case
+            case 'personal':
+                this.url = 'https://apappvideo.000webhostapp.com/' + this.state.videoId;
+
+                if (this.state.videoId) {
+                    const LazyLoadVideo = React.lazy(
+                        () => import('ComponentsPath/Personal/Video')
+                    );
+
+                    this.iframe = <Suspense fallback={<div>Loading...</div>}>
+                        <LazyLoadVideo
+                            videoId={this.state.videoId}
+                            url={this.url} />
+                    </Suspense>;
+                }
+
+                this.executeRenderStream = this.renderStreamPersonal(this.iframe);
+                break;
+
+            // default video case
             default:
-                this.executeRenderStream = this.renderStreamYoutube();
+                this.executeRenderStream = this.renderStreamNotFound();
         }
 
         return this.executeRenderStream;
@@ -55,54 +105,65 @@ class RenderManager extends React.Component {
      *  @renderStreamYoutube()
      *  manages youtube stream
      */
-    renderStreamYoutube() {
-        let iframe = '';
-        let callBack = {
-            selectMovieList: this.selectMovieList
-        };
-        const url = 'https://www.youtube.com/embed/' + this.state.videoId;
-        const classNameThemeItem = 'list-group-item list-group-item-primary text-white d-inline-block mr-1 theme-item p-0';
-
-        if (this.state.videoId) {
-            iframe = <Iframe
-                videoId={this.state.videoIde}
-                callBack={callBack}
-                url={url} />;
-        }
-
+    renderStreamYoutube(iframe) {
         /*
          *  @JSX Syntax to display
          */
         return (
-            <div>
-                <div className='row mb-3'>
-                    <div className='col-12 col-sm-12'>
-                        <MovieList callBack={callBack} />
-                    </div>
-                </div>
-                <div className='row'>
-                    <div className='col-12 col-sm-12'>
-                        {iframe}
-                    </div>
-                </div>
-                <ul className='fixed-bottom list-group d-block theme-group'>
-                    <li className={classNameThemeItem}>
-                        <a className='p-2' data-theme='black-red' onClick={this.selectTheme}>Black & Red</a>
-                    </li>
-                    <li className={classNameThemeItem}>
-                        <a className='p-2' data-theme='white-blue' onClick={this.selectTheme}>White & Blue</a>
-                    </li>
-                </ul>
-            </div>
+            <Fragment>
+                <MovieList callBack={this.selectMovieList} />
+                {iframe}
+                <ThemeManager callBack={this.selectTheme} />
+            </Fragment>
         );
     }
 
+    /*
+     *  @renderStreamPersonal()
+     *  manages personal stream
+     */
+    renderStreamPersonal(iframe) {
+        /*
+         *  @JSX Syntax to display
+         */
+        return (
+            <Fragment>
+                <VideoList callBack={this.selectMovieList} />
+                {iframe}
+                <ThemeManager callBack={this.selectTheme} />
+            </Fragment>
+        );
+    }
+
+    /*
+     *  @renderStreamNotFound()
+     *  manages notfound
+     */
+    renderStreamNotFound() {
+        /*
+         *  @JSX Syntax to display
+         */
+        return (
+            <Fragment>
+                <h1 className='display-2'>Stream Not Found</h1>
+            </Fragment>
+        );
+    }
+
+    /*
+     *  @selectMovieList()
+     *  updates state for videoId
+     */
     selectMovieList(event) {
         this.setState({
             videoId: event.target.getAttribute('data-video'),
         });
     }
 
+    /*
+     *  @selectTheme()
+     *  updates the color of according to the selection
+     */
     selectTheme(event) {
         let bodyThemeName = '';
 
@@ -123,6 +184,14 @@ class RenderManager extends React.Component {
         );
     }
 }
+
+/*
+ *  defining Proptype for the Iframe Class
+ */
+RenderManager.propTypes = {
+    streamName: PropTypes.string,
+};
+
 
 /*
  *  @RenderManager

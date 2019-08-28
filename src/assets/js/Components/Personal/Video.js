@@ -7,12 +7,16 @@ import PropTypes from 'prop-types';
 /*
  *  Extending React Component
  */
-class Iframe extends React.Component {
+class Video extends React.Component {
     render() {
         return(
             <div className='row'>
                 <div className='col-12 col-sm-12'>
-                    <iframe width='100%' height='600' src={this.props.url} />
+                    <video width='100%' controls>
+                        <source src={this.props.url}
+                            type='video/mp4' crossOrigin='anonymous' />
+                        Your browser does not support HTML5 video.
+                    </video>
                 </div>
             </div>
         );
@@ -20,14 +24,14 @@ class Iframe extends React.Component {
 }
 
 /*
- *  defining Proptype for the Iframe Class
+ *  defining Proptype for the Video Class
  */
-Iframe.propTypes = {
+Video.propTypes = {
     url: PropTypes.string,
 };
 
 /*
- *  @Iframe
+ *  @Video
  *  Only class to export from this file
  */
-export default Iframe;
+export default Video;
