@@ -12,6 +12,13 @@ class ThemeManager extends React.Component {
         this.selectTheme = this.selectTheme.bind(this);
     }
 
+    componentDidMount() {
+        document.body.setAttribute(
+            'class',
+            localStorage.getItem('theme') || 'white-blue'
+        );
+    }
+
     /*
      *  @render()
      *  React Lifecyle Function
@@ -49,9 +56,11 @@ class ThemeManager extends React.Component {
                 bodyThemeName = 'white-blue';
         }
 
+        localStorage.setItem('theme', bodyThemeName);
+
         document.body.setAttribute(
             'class',
-            bodyThemeName
+            localStorage.getItem('theme')
         );
     }
 }

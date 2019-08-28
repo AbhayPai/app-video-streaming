@@ -21,7 +21,6 @@ class RenderManager extends React.Component {
         this.url = '';
         this.state = {
             videoId: '',
-            theme: 'light',
         };
         this.iframe = '';
         this.streamName = this.props.streamName;
