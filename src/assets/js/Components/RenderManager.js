@@ -7,7 +7,7 @@ import React, { Fragment, Suspense } from 'react';
 /*
  *  All Usable React Reusable Components in this File
  */
-// import Video from 'ComponentsPath/Personal/Video';
+import FBList from 'ComponentsPath/Facebook/FBList';
 import MovieList from 'ComponentsPath/Youtube/MovieList';
 import VideoList from 'ComponentsPath/Personal/VideoList';
 import ThemeManager from 'ComponentsPath/Footer/ThemeManager';
@@ -91,6 +91,25 @@ class RenderManager extends React.Component {
                 this.executeRenderStream = this.renderStreamPersonal(this.iframe);
                 break;
 
+            // facebook video case
+            case 'facebook':
+                this.url = 'https://www.facebook.com/' + this.state.videoId;
+
+                if (this.state.videoId) {
+                    const LazyLoadVideo = React.lazy(
+                        () => import('ComponentsPath/Facebook/FB')
+                    );
+
+                    this.iframe = <Suspense fallback={<div>Loading...</div>}>
+                        <LazyLoadVideo
+                            videoId={this.state.videoId}
+                            url={this.url} />
+                    </Suspense>;
+                }
+
+                this.executeRenderStream = this.renderStreamFacebook(this.iframe);
+                break;
+
             // default video case
             default:
                 this.executeRenderStream = this.renderStreamNotFound();
@@ -127,6 +146,23 @@ class RenderManager extends React.Component {
         return (
             <Fragment>
                 <VideoList callBack={this.selectMovieList} />
+                {iframe}
+                <ThemeManager />
+            </Fragment>
+        );
+    }
+
+    /*
+     *  @renderStreamFacebook()
+     *  manages facebook stream
+     */
+    renderStreamFacebook(iframe) {
+        /*
+         *  @JSX Syntax to display
+         */
+        return (
+            <Fragment>
+                <FBList callBack={this.selectMovieList} />
                 {iframe}
                 <ThemeManager />
             </Fragment>

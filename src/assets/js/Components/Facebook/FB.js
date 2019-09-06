@@ -8,7 +8,7 @@ import ReactPlayer from 'react-player';
 /*
  *  Extending React Component
  */
-class Video extends React.Component {
+class FB extends React.Component {
     constructor(props) {
         super(props);
     }
@@ -17,7 +17,7 @@ class Video extends React.Component {
         return(
             <div className='row'>
                 <div className='col-12 col-sm-12'>
-                    <ReactPlayer url={this.props.url} />
+                    <ReactPlayer url={this.props.url} width='100%' />
                 </div>
             </div>
         );
@@ -25,14 +25,14 @@ class Video extends React.Component {
 }
 
 /*
- *  defining Proptype for the Video Class
+ *  defining Proptype for the FB Class
  */
-Video.propTypes = {
+FB.propTypes = {
     url: PropTypes.string,
 };
 
 /*
- *  @Video
+ *  @FB
  *  Only class to export from this file
  */
-export default Video;
+export default FB;

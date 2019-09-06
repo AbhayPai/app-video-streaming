@@ -3,6 +3,7 @@
  */
 import React from 'react';
 import PropTypes from 'prop-types';
+import ReactPlayer from 'react-player';
 
 /*
  *  Extending React Component
@@ -12,7 +13,7 @@ class Iframe extends React.Component {
         return(
             <div className='row'>
                 <div className='col-12 col-sm-12'>
-                    <iframe width='100%' height='600' src={this.props.url} />
+                    <ReactPlayer url={this.props.url} />
                 </div>
             </div>
         );
