@@ -13,7 +13,7 @@ class Iframe extends React.Component {
         return(
             <div className='row'>
                 <div className='col-12 col-sm-12'>
-                    <ReactPlayer url={this.props.url} />
+                    <ReactPlayer url={this.props.url}  width='100%' />
                 </div>
             </div>
         );

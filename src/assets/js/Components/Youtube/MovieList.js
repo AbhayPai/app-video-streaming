@@ -9,85 +9,55 @@ import PropTypes from 'prop-types';
  */
 class MovieList extends React.Component {
     render() {
-        const movieAnchorClass = 'p-2';
-        const movieListClass = 'list-group-item list-group-item-primary text-white d-inline-block mr-1 mb-3 p-0';
-
         return(
             <div className='row mb-3'>
                 <div className='col-12 col-sm-12'>
                     <h1 className='display-4 mb-3 page-title'>Click on movie title from the list below.</h1>
-                    <ul className='list-group d-block movie-group'>
-                        <li className={movieListClass}>
-                            <a className={movieAnchorClass}
-                                onClick={this.props.callBack}
-                                data-video='7y3KbUHnee8'>Bajrangi Bhaijaan</a>
-                        </li>
-                        <li className={movieListClass}>
-                            <a className={movieAnchorClass}
-                                onClick={this.props.callBack}
-                                data-video='a0yYmyVD-5M'>Jai Ho</a>
-                        </li>
-                        <li className={movieListClass}>
-                            <a className={movieAnchorClass}
-                                onClick={this.props.callBack}
-                                data-video='dPgS6Xzxj64'>Baby</a>
-                        </li>
-                        <li className={movieListClass}>
-                            <a className={movieAnchorClass}
-                                onClick={this.props.callBack}
-                                data-video='EACzgWlPKe4'>kick</a>
-                        </li>
-                        <li className={movieListClass}>
-                            <a className={movieAnchorClass}
-                                onClick={this.props.callBack}
-                                data-video='LvtEnYvicno'>Dangal</a>
-                        </li>
-                        <li className={movieListClass}>
-                            <a className={movieAnchorClass}
-                                onClick={this.props.callBack}
-                                data-video='dw6QQdFEfeo'>Ghajini</a>
-                        </li>
-                        <li className={movieListClass}>
-                            <a className={movieAnchorClass}
-                                onClick={this.props.callBack}
-                                data-video='D4HvmICrC8w'>PK</a>
-                        </li>
-                        <li className={movieListClass}>
-                            <a className={movieAnchorClass}
-                                onClick={this.props.callBack}
-                                data-video='0qBBSAFjlEs'>Thugs of Hindostan</a>
-                        </li>
-                        <li className={movieListClass}>
-                            <a className={movieAnchorClass}
-                                onClick={this.props.callBack}
-                                data-video='KHFpcUq7b8I'>Taare Zameen Par</a>
-                        </li>
-                        <li className={movieListClass}>
-                            <a className={movieAnchorClass}
-                                onClick={this.props.callBack}
-                                data-video='S0qD_kGzz-s'>Rang de basanti</a>
-                        </li>
-                        <li className={movieListClass}>
-                            <a className={movieAnchorClass}
-                                onClick={this.props.callBack}
-                                data-video='AI0FuE6jkB0'>Brothers: Blood Against Blood</a>
-                        </li>
-                        <li className={movieListClass}>
-                            <a className={movieAnchorClass}
-                                onClick={this.props.callBack}
-                                data-video='Gj0q9mFn8bg'>Boss</a>
-                        </li>
-                        <li className={movieListClass}>
-                            <a className={movieAnchorClass}
-                                onClick={this.props.callBack}
-                                data-video='zB2uW7hFs1I'>Airlift</a>
-                        </li>
-                        <li className={movieListClass}>
-                            <a className={movieAnchorClass}
-                                onClick={this.props.callBack}
-                                data-video='e6QGJ5B_ceQ'>Housefull 3</a>
-                        </li>
-                    </ul>
+                    <select onChange={this.props.callBack} defaultValue={'DEFAULT'} className='form-control movie-group'>
+                        <option disabled value='DEFAULT'> -- select an option -- </option>
+                        <option data-video='7y3KbUHnee8'>
+                            Bajrangi Bhaijaan
+                        </option>
+                        <option data-video='a0yYmyVD-5M'>
+                            Jai Ho
+                        </option>
+                        <option data-video='dPgS6Xzxj64'>
+                            Baby
+                        </option>
+                        <option data-video='EACzgWlPKe4'>
+                            kick
+                        </option>
+                        <option data-video='LvtEnYvicno'>
+                            Dangal
+                        </option>
+                        <option data-video='dw6QQdFEfeo'>
+                            Ghajini
+                        </option>
+                        <option data-video='D4HvmICrC8w'>
+                            PK
+                        </option>
+                        <option data-video='0qBBSAFjlEs'>
+                            Thugs of Hindostan
+                        </option>
+                        <option data-video='KHFpcUq7b8I'>
+                            Taare Zameen Par
+                        </option>
+                        <option data-video='S0qD_kGzz-s'>
+                            Rang de basanti
+                        </option>
+                        <option data-video='AI0FuE6jkB0'>
+                            Brothers: Blood Against Blood
+                        </option>
+                        <option data-video='Gj0q9mFn8bg'>
+                            Boss
+                        </option>
+                        <option data-video='zB2uW7hFs1I'>
+                            Airlift
+                        </option>
+                        <option data-video='e6QGJ5B_ceQ'>
+                            Housefull 3
+                        </option>
+                    </select>
                 </div>
             </div>
         );

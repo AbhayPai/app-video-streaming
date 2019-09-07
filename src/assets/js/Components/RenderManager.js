@@ -195,7 +195,7 @@ class RenderManager extends React.Component {
      */
     selectMovieList(event) {
         this.setState({
-            videoId: event.target.getAttribute('data-video'),
+            videoId: event.target.options[event.target.selectedIndex].getAttribute('data-video'),
         });
     }
 }
