@@ -3,6 +3,6 @@
 ## [App Video Streaming](https://abhaypai.github.io/app-video-streaming/)
 
 ## Todo in this app
-* Video Category
-* Search List
-* Add More Stream
+* Search List (Done)
+* Add More Stream (Facebook, Linkedin, etc)
+* Search List (Make search case insensitive)

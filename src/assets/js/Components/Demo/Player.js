@@ -8,31 +8,29 @@ import ReactPlayer from 'react-player';
 /*
  *  Extending React Component
  */
-class FB extends React.Component {
+class Player extends React.Component {
     constructor(props) {
         super(props);
     }
 
     render() {
         return(
-            <div className='row'>
-                <div className='col-12 col-sm-12'>
-                    <ReactPlayer url={this.props.url} width='100%' />
-                </div>
+            <div className='col-8 col-sm-8'>
+                <ReactPlayer url={this.props.url} width='100%' height='400px' />
             </div>
         );
     }
 }
 
 /*
- *  defining Proptype for the FB Class
+ *  defining Proptype for the Player Class
  */
-FB.propTypes = {
+Player.propTypes = {
     url: PropTypes.string,
 };
 
 /*
- *  @FB
+ *  @Player
  *  Only class to export from this file
  */
-export default FB;
+export default Player;

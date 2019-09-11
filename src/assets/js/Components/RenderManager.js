@@ -7,9 +7,7 @@ import React, { Fragment, Suspense } from 'react';
 /*
  *  All Usable React Reusable Components in this File
  */
-import FBList from 'ComponentsPath/Facebook/FBList';
-import MovieList from 'ComponentsPath/Youtube/MovieList';
-import VideoList from 'ComponentsPath/Personal/VideoList';
+import VideoList from 'ComponentsPath/Demo/VideoList';
 import ThemeManager from 'ComponentsPath/Footer/ThemeManager';
 
 /*
@@ -22,9 +20,9 @@ class RenderManager extends React.Component {
         this.state = {
             videoId: '',
         };
-        this.iframe = '';
+        this.player = '';
         this.streamName = this.props.streamName;
-        this.selectMovieList = this.selectMovieList.bind(this);
+        this.playVideo = this.playVideo.bind(this);
     }
 
     /*
@@ -54,60 +52,21 @@ class RenderManager extends React.Component {
      */
     manageRender() {
         switch (this.streamName) {
-            // youtube video case
-            case 'youtube':
-                if (this.state.videoId) {
-                    this.url = 'https://www.youtube.com/embed/' + this.state.videoId;
-                    const LazyLoadIframe = React.lazy(
-                        () => import('ComponentsPath/Youtube/Iframe')
-                    );
-
-                    this.iframe = <Suspense fallback={<div>Loading...</div>}>
-                        <LazyLoadIframe
-                            videoId={this.state.videoIde}
-                            url={this.url} />
-                    </Suspense>;
-                }
-
-                this.executeRenderStream = this.renderStreamYoutube(this.iframe);
-                break;
-
-            // personal video case
-            case 'personal':
-                this.url = 'https://apappvideo.000webhostapp.com/' + this.state.videoId;
+            // motivational video case
+            case 'motivational':
+                this.url = this.state.videoId;
 
                 if (this.state.videoId) {
                     const LazyLoadVideo = React.lazy(
-                        () => import('ComponentsPath/Personal/Video')
+                        () => import('ComponentsPath/Demo/Player')
                     );
 
-                    this.iframe = <Suspense fallback={<div>Loading...</div>}>
-                        <LazyLoadVideo
-                            videoId={this.state.videoId}
-                            url={this.url} />
+                    this.player = <Suspense fallback={<div>Loading...</div>}>
+                        <LazyLoadVideo url={this.url} />
                     </Suspense>;
                 }
 
-                this.executeRenderStream = this.renderStreamPersonal(this.iframe);
-                break;
-
-            // facebook video case
-            case 'facebook':
-                this.url = 'https://www.facebook.com/' + this.state.videoId;
-
-                if (this.state.videoId) {
-                    const LazyLoadVideo = React.lazy(
-                        () => import('ComponentsPath/Facebook/FB')
-                    );
-
-                    this.iframe = <Suspense fallback={<div>Loading...</div>}>
-                        <LazyLoadVideo
-                            videoId={this.state.videoId}
-                            url={this.url} />
-                    </Suspense>;
-                }
-
-                this.executeRenderStream = this.renderStreamFacebook(this.iframe);
+                this.executeRenderStream = this.renderVideo(this.player);
                 break;
 
             // default video case
@@ -119,51 +78,26 @@ class RenderManager extends React.Component {
     }
 
     /*
-     *  @renderStreamYoutube()
-     *  manages youtube stream
-     */
-    renderStreamYoutube(iframe) {
-        /*
-         *  @JSX Syntax to display
-         */
-        return (
-            <Fragment>
-                <MovieList callBack={this.selectMovieList} />
-                {iframe}
-                <ThemeManager />
-            </Fragment>
-        );
-    }
-
-    /*
      *  @renderStreamPersonal()
      *  manages personal stream
      */
-    renderStreamPersonal(iframe) {
+    renderVideo(player) {
         /*
          *  @JSX Syntax to display
          */
         return (
             <Fragment>
-                <VideoList callBack={this.selectMovieList} />
-                {iframe}
-                <ThemeManager />
-            </Fragment>
-        );
-    }
-
-    /*
-     *  @renderStreamFacebook()
-     *  manages facebook stream
-     */
-    renderStreamFacebook(iframe) {
-        /*
-         *  @JSX Syntax to display
-         */
-        return (
-            <Fragment>
-                <FBList callBack={this.selectMovieList} />
-                {iframe}
+                <div className='row mb-3'>
+                    <div className='col-12'>
+                        <h1 className='display-4 mb-3 page-title text-center'>
+                            Motivational Video Lists.
+                        </h1>
+                    </div>
+                    <VideoList
+                        callBack={this.playVideo}
+                    />
+                    {player}
+                </div>
                 <ThemeManager />
             </Fragment>
         );
@@ -190,12 +124,12 @@ class RenderManager extends React.Component {
     }
 
     /*
-     *  @selectMovieList()
-     *  updates state for videoId
+     *  @playVideo()
+     *  updates state
      */
-    selectMovieList(event) {
+    playVideo(event) {
         this.setState({
-            videoId: event.target.options[event.target.selectedIndex].getAttribute('data-video'),
+            videoId: event.target.getAttribute('data-video'),
         });
     }
 }

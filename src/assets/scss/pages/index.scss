@@ -6,11 +6,22 @@ $color-white: #ffffff;
 $color-black: #000000;
 
 body {
-    min-width: 416px !important;
+    min-width: 600px !important;
     // background-image: url($image-ap-logo);
 
     &.black-red {
         background-color: $color-black;
+
+        .playlist {
+            .active {
+                background-color: $color-red;
+            }
+        }
+
+        .list-group-item:hover {
+            color: $color-white;
+            background-color: $color-red;
+        }
 
         .list-group-item-primary {
             a {
@@ -24,7 +35,38 @@ body {
     }
 }
 
-.movie-group,
+.playlist {
+    min-height: 400px;
+    max-height: 400px;
+    overflow: overlay;
+    background-color: $color-white;
+
+    .search {
+        top: 0px;
+        z-index: 1;
+        position: sticky;
+    }
+
+    .nowplaying {
+        bottom: 0px;
+        z-index: 1;
+        position:sticky;
+    }
+
+    .active {
+        background-color: $color-blue;
+    }
+
+    .list-group-item {
+        cursor: pointer;
+
+        &:hover {
+            color: $color-white;
+            background-color: $color-blue;
+        }
+    }
+}
+
 .theme-group {
     .list-group-item-primary {
         background-color: transparent;
