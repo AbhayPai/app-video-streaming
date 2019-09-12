@@ -15,9 +15,11 @@ class Player extends React.Component {
 
     render() {
         return(
-            <div className='col-8 col-sm-8'>
-                <ReactPlayer url={this.props.url} width='100%' height='400px' />
-            </div>
+            <ReactPlayer
+                url={this.props.url}
+                width={this.props.width || '100%'}
+                height={this.props.height || '400px'}
+            />
         );
     }
 }
@@ -27,6 +29,8 @@ class Player extends React.Component {
  */
 Player.propTypes = {
     url: PropTypes.string,
+    width: PropTypes.string,
+    height: PropTypes.string,
 };
 
 /*

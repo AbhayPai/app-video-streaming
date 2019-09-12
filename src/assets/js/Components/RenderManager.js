@@ -8,6 +8,7 @@ import React, { Fragment, Suspense } from 'react';
  *  All Usable React Reusable Components in this File
  */
 import VideoList from 'ComponentsPath/Demo/VideoList';
+import VideoHistory from 'ComponentsPath/Demo/VideoHistory';
 import ThemeManager from 'ComponentsPath/Footer/ThemeManager';
 
 /*
@@ -89,14 +90,23 @@ class RenderManager extends React.Component {
             <Fragment>
                 <div className='row mb-3'>
                     <div className='col-12'>
-                        <h1 className='display-4 mb-3 page-title text-center'>
+                        <h1 className='display-4 mb-3 page-title'>
                             Motivational Video Lists.
                         </h1>
                     </div>
-                    <VideoList
-                        callBack={this.playVideo}
+                    <div className='col-4 col-sm-4'>
+                        <VideoList
+                            callBack={this.playVideo}
+                        />
+                    </div>
+                    <div className='col-8 col-sm-8'>
+                        {player}
+                    </div>
+                </div>
+                <div className='row mb-3'>
+                    <VideoHistory
+                        height='200px'
                     />
-                    {player}
                 </div>
                 <ThemeManager />
             </Fragment>

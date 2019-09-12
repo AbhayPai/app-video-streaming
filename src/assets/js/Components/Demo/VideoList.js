@@ -3,6 +3,7 @@
  */
 import React from 'react';
 import PropTypes from 'prop-types';
+import Cookie from "UtilitiesPath/Cookie";
 import GetVideoList from 'ModulesPath/GetVideoList';
 
 /*
@@ -26,48 +27,46 @@ class VideoList extends React.Component {
         let {lists} = this.state;
 
         return(
-            <div className='col-4 col-sm-4'>
-                <ul className='list-group playlist border border-primary'>
-                    <input
-                        type='text'
-                        placeholder='Search'
-                        className='form-control search'
-                        id='search'
-                        onChange={this.search}
-                    />
-                    {
-                        lists.map((list) => {
-                            return (
-                                <li
-                                    className={
-                                        this.state.activeId === list.id ?
-                                            'list-group-item active' :
-                                            'list-group-item'
+            <ul className='list-group playlist border border-primary'>
+                <input
+                    type='text'
+                    placeholder='Search'
+                    className='form-control search'
+                    id='search'
+                    onChange={this.search}
+                />
+                {
+                    lists.map((list) => {
+                        return (
+                            <li
+                                className={
+                                    this.state.activeId === list.id ?
+                                        'list-group-item active' :
+                                        'list-group-item'
+                                }
+                                key={list.id}
+                                data-video={list.url}
+                                onClick={
+                                    (event) => {
+                                        this.toggleClass(
+                                            event, list
+                                        );
                                     }
-                                    key={list.id}
-                                    data-video={list.url}
-                                    onClick={
-                                        (event) => {
-                                            this.toggleClass(
-                                                event, list.id, list.title
-                                            );
-                                        }
-                                    }
-                                >
-                                    {list.title}
-                                </li>
-                            );
-                        })
-                    }
-                    {
-                        this.state.nowPlaying ?
-                            <li className='list-group-item active nowplaying'>
-                                {this.state.nowPlaying}
-                            </li> :
-                            ''
-                    }
-                </ul>
-            </div>
+                                }
+                            >
+                                {list.title}
+                            </li>
+                        );
+                    })
+                }
+                {
+                    this.state.nowPlaying ?
+                        <li className='list-group-item active nowplaying'>
+                            {this.state.nowPlaying}
+                        </li> :
+                        ''
+                }
+            </ul>
         );
     }
 
@@ -85,12 +84,38 @@ class VideoList extends React.Component {
         });
     }
 
-    toggleClass(event, listId, listTitle) {
+    toggleClass(event, list) {
         this.setState({
-            activeId: listId,
-            nowPlaying: 'Now Playing: ' + listTitle,
+            activeId: list.id,
+            nowPlaying: 'Now Playing: ' + list.title,
         });
+
+        let videoHistory = Cookie.getCookie('videoHistory');
+
+        if (typeof videoHistory !== 'undefined') {
+            videoHistory = JSON.parse(videoHistory);
+        } else {
+            videoHistory = [];
+        }
+
+        if (!this.searchHistory(list.id, videoHistory)) videoHistory.push(list);
+
+        Cookie.setCookie(
+            'videoHistory',
+            JSON.stringify(videoHistory),
+            7,
+            '/'
+        );
+
         this.props.callBack(event);
+    }
+
+    searchHistory(id, list) {
+        for (var i=0; i < list.length; i++) {
+            if (list[i].id === id) return true;
+        }
+
+        return false;
     }
 }
 
