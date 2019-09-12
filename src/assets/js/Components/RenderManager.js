@@ -105,7 +105,7 @@ class RenderManager extends React.Component {
                 </div>
                 <div className='row mb-3'>
                     <VideoHistory
-                        height='200px'
+                        callBack={this.playVideo}
                     />
                 </div>
                 <ThemeManager />

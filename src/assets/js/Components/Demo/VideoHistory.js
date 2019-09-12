@@ -3,18 +3,14 @@
  */
 import PropTypes from 'prop-types';
 import React, { Suspense } from 'react';
-import Cookie from "UtilitiesPath/Cookie";
+import Cookie from 'UtilitiesPath/Cookie';
 
 /*
  *  Extending React Component
  */
 class VideoHistory extends React.Component {
     render() {
-        const LazyLoadVideo = React.lazy(
-            () => import('ComponentsPath/Demo/Player')
-        );
         let renderMarkup = '';
-
         let videoHistory = Cookie.getCookie('videoHistory');
 
         if (typeof videoHistory !== 'undefined') {
@@ -31,20 +27,24 @@ class VideoHistory extends React.Component {
                             Recently Played Video.
                         </h1>
                     </div>
-                    {
-                        videoHistory.map((list, index) => {
-                            return (
-                                <div className='col-2 mb-3' key={index}>
-                                    <LazyLoadVideo
-                                        key={list.id}
-                                        url={list.url}
-                                        width={this.props.width || '100%'}
-                                        height={this.props.height || '400px'}
-                                    />
-                                </div>
-                            );
-                        })
-                    }
+                    <div className='col-12'>
+                        <ul className='list-group d-block'>
+                            {
+                                videoHistory.map((list) => {
+                                    return (
+                                        <li
+                                            className='list-group-item list-group-item-primary text-white d-inline-block mr-1 mb-1'
+                                            key={list.id}
+                                            data-video={list.url}
+                                            onClick={this.props.callBack}
+                                        >
+                                            {list.title}
+                                        </li>
+                                    );
+                                })
+                            }
+                        </ul>
+                    </div>
                 </Suspense>
             );
         }
@@ -57,9 +57,7 @@ class VideoHistory extends React.Component {
  *  defining Proptype for the VideoHistory Class
  */
 VideoHistory.propTypes = {
-    // url: PropTypes.string,
-    width: PropTypes.string,
-    height: PropTypes.string,
+    callBack: PropTypes.func,
 };
 
 /*
