@@ -75,10 +75,7 @@ module.exports = {
             filter: ({name}) => !name.endsWith('.php')
         }),
 
-        new CleanWebpackPlugin({
-            verbose:  true,
-            cleanStaleWebpackAssets: false
-        }),
+        new CleanWebpackPlugin(),
 
         new UglifyJsPlugin({
             cache: false,
