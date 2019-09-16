@@ -15,7 +15,6 @@ class VideoList extends React.Component {
 
         this.state = {
             activeId: '',
-            nowPlaying: '',
             lists: new GetVideoList().getAllList(),
         };
 
@@ -41,11 +40,12 @@ class VideoList extends React.Component {
                             <li
                                 className={
                                     this.state.activeId === list.id ?
-                                        'list-group-item active' :
-                                        'list-group-item'
+                                        'list-group-item playlist-item active' :
+                                        'list-group-item playlist-item'
                                 }
                                 key={list.id}
                                 data-video={list.url}
+                                data-title={list.title}
                                 onClick={
                                     (event) => {
                                         this.toggleClass(
@@ -59,13 +59,6 @@ class VideoList extends React.Component {
                         );
                     })
                 }
-                {
-                    this.state.nowPlaying ?
-                        <li className='list-group-item active nowplaying'>
-                            {this.state.nowPlaying}
-                        </li> :
-                        ''
-                }
             </ul>
         );
     }
@@ -73,11 +66,9 @@ class VideoList extends React.Component {
     search(event) {
         let lists = [];
 
-        if (new GetVideoList().searchFromList(event.target.value).length > 0) {
-            lists = new GetVideoList().searchFromList(event.target.value);
-        } else {
+        new GetVideoList().searchFromList(event.target.value).length > 0 ?
+            lists = new GetVideoList().searchFromList(event.target.value) :
             lists = new GetVideoList().getAllList();
-        }
 
         this.setState({
             lists,
@@ -87,27 +78,26 @@ class VideoList extends React.Component {
     toggleClass(event, list) {
         this.setState({
             activeId: list.id,
-            nowPlaying: 'Now Playing: ' + list.title,
         });
 
-        let videoHistory = Cookie.getCookie('videoHistory');
+        let tempVideoHistory = Cookie.getCookie('videoHistory');
 
-        if (typeof videoHistory !== 'undefined') {
-            videoHistory = JSON.parse(videoHistory);
-        } else {
-            videoHistory = [];
-        }
+        typeof tempVideoHistory !== 'undefined' ?
+            tempVideoHistory = JSON.parse(tempVideoHistory) :
+            tempVideoHistory = [];
 
-        if (!this.searchHistory(list.id, videoHistory)) videoHistory.push(list);
+        !this.searchHistory(list.id, tempVideoHistory) ?
+            tempVideoHistory.push(list) :
+            '';
 
         Cookie.setCookie(
             'videoHistory',
-            JSON.stringify(videoHistory),
+            JSON.stringify(tempVideoHistory),
             7,
             '/'
         );
 
-        this.props.callBack(event);
+        this.props.playVideo(event);
     }
 
     searchHistory(id, list) {
@@ -123,7 +113,7 @@ class VideoList extends React.Component {
  *  defining Proptype for the VideoList Class
  */
 VideoList.propTypes = {
-    callBack: PropTypes.func,
+    playVideo: PropTypes.func,
 };
 
 /*

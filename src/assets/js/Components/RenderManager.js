@@ -20,6 +20,7 @@ class RenderManager extends React.Component {
         this.url = '';
         this.state = {
             videoId: '',
+            nowplaying: '',
         };
         this.player = '';
         this.streamName = this.props.streamName;
@@ -96,7 +97,7 @@ class RenderManager extends React.Component {
                     </div>
                     <div className='col-4 col-sm-4'>
                         <VideoList
-                            callBack={this.playVideo}
+                            playVideo={this.playVideo}
                         />
                     </div>
                     <div className='col-8 col-sm-8'>
@@ -108,7 +109,7 @@ class RenderManager extends React.Component {
                         callBack={this.playVideo}
                     />
                 </div>
-                <ThemeManager />
+                <ThemeManager nowplaying={this.state.nowplaying} />
             </Fragment>
         );
     }
@@ -140,6 +141,7 @@ class RenderManager extends React.Component {
     playVideo(event) {
         this.setState({
             videoId: event.target.getAttribute('data-video'),
+            nowplaying: event.target.getAttribute('data-title')
         });
     }
 }

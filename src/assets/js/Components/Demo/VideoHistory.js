@@ -8,50 +8,47 @@ import Cookie from 'UtilitiesPath/Cookie';
 /*
  *  Extending React Component
  */
-class VideoHistory extends React.Component {
-    render() {
-        let renderMarkup = '';
-        let videoHistory = Cookie.getCookie('videoHistory');
+const VideoHistory = (props) => {
+    let renderMarkup = '';
+    let videoHistory = Cookie.getCookie('videoHistory');
 
-        if (typeof videoHistory !== 'undefined') {
-            videoHistory = JSON.parse(videoHistory);
-        } else {
-            videoHistory = [];
-        }
+    typeof videoHistory !== 'undefined' ?
+        videoHistory = JSON.parse(videoHistory) :
+        videoHistory = [];
 
-        if (videoHistory.length > 0) {
-            renderMarkup = (
-                <Suspense fallback={<div>Loading...</div>}>
-                    <div className='col-12'>
-                        <h1 className='display-4 mb-3 page-title'>
-                            Recently Played Video.
-                        </h1>
-                    </div>
-                    <div className='col-12'>
-                        <ul className='list-group d-block'>
-                            {
-                                videoHistory.map((list) => {
-                                    return (
-                                        <li
-                                            className='list-group-item list-group-item-primary text-white d-inline-block mr-1 mb-1'
-                                            key={list.id}
-                                            data-video={list.url}
-                                            onClick={this.props.callBack}
-                                        >
-                                            {list.title}
-                                        </li>
-                                    );
-                                })
-                            }
-                        </ul>
-                    </div>
-                </Suspense>
-            );
-        }
+    videoHistory.length > 0 ?
+        renderMarkup = (
+            <Suspense fallback={<div>Loading...</div>}>
+                <div className='col-12'>
+                    <h1 className='display-4 mb-3 page-title'>
+                        Recently Played Video.
+                    </h1>
+                </div>
+                <div className='col-12'>
+                    <ul className='list-group d-block recently-played'>
+                        {
+                            videoHistory.map((list) => {
+                                return (
+                                    <li
+                                        className='list-group-item recently-played-item list-group-item-primary text-white d-inline-block mr-1 mb-1'
+                                        key={list.id}
+                                        data-title={list.title}
+                                        data-video={list.url}
+                                        onClick={props.callBack}
+                                    >
+                                        {list.title}
+                                    </li>
+                                );
+                            })
+                        }
+                    </ul>
+                </div>
+            </Suspense>
+        ) :
+        '' ; // Do Nothing.
 
-        return(renderMarkup);
-    }
-}
+    return(renderMarkup);
+};
 
 /*
  *  defining Proptype for the VideoHistory Class
