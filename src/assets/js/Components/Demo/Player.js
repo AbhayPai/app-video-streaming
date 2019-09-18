@@ -8,25 +8,23 @@ import ReactPlayer from 'react-player';
 /*
  *  Extending React Component
  */
-class Player extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
-    render() {
-        return(
-            <div className='col-8 col-sm-8'>
-                <ReactPlayer url={this.props.url} width='100%' height='400px' />
-            </div>
-        );
-    }
-}
+const Player = (props) => {
+    return(
+        <ReactPlayer
+            url={props.url}
+            width={props.width || '100%'}
+            height={props.height || '400px'}
+        />
+    );
+};
 
 /*
  *  defining Proptype for the Player Class
  */
 Player.propTypes = {
     url: PropTypes.string,
+    width: PropTypes.string,
+    height: PropTypes.string,
 };
 
 /*

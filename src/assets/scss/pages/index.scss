@@ -1,38 +1,9 @@
-$image-ap-logo: './../../images/ap-logo.jpg';
-
-$color-red: #dc3545;
-$color-blue: #007bff;
-$color-white: #ffffff;
-$color-black: #000000;
+@import './variables';
+@import './theme-red';
 
 body {
     min-width: 600px !important;
     // background-image: url($image-ap-logo);
-
-    &.black-red {
-        background-color: $color-black;
-
-        .playlist {
-            .active {
-                background-color: $color-red;
-            }
-        }
-
-        .list-group-item:hover {
-            color: $color-white;
-            background-color: $color-red;
-        }
-
-        .list-group-item-primary {
-            a {
-                background-color: $color-red;
-            }
-        }
-
-        .page-title {
-            color: $color-white;
-        }
-    }
 }
 
 .playlist {
@@ -47,17 +18,11 @@ body {
         position: sticky;
     }
 
-    .nowplaying {
-        bottom: 0px;
-        z-index: 1;
-        position:sticky;
-    }
-
     .active {
         background-color: $color-blue;
     }
 
-    .list-group-item {
+    .playlist-item {
         cursor: pointer;
 
         &:hover {
@@ -67,13 +32,23 @@ body {
     }
 }
 
+.recently-played,
 .theme-group {
-    .list-group-item-primary {
-        background-color: transparent;
+    .recently-played-item,
+    .theme-item {
+        cursor: pointer;
+        background-color: $color-blue;
 
         a {
+            background-color: $color-blue;
+        }
+    }
+}
+
+.theme-group {
+    .theme-item {
+        a {
             color: $color-white;
-            cursor: pointer;
             border-top-left-radius: .25rem;
             border-top-right-radius: .25rem;
             background-color: $color-blue;

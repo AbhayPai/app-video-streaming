@@ -3,6 +3,7 @@
  */
 import React from 'react';
 import PropTypes from 'prop-types';
+import Cookie from "UtilitiesPath/Cookie";
 import GetVideoList from 'ModulesPath/GetVideoList';
 
 /*
@@ -14,7 +15,6 @@ class VideoList extends React.Component {
 
         this.state = {
             activeId: '',
-            nowPlaying: '',
             lists: new GetVideoList().getAllList(),
         };
 
@@ -26,71 +26,86 @@ class VideoList extends React.Component {
         let {lists} = this.state;
 
         return(
-            <div className='col-4 col-sm-4'>
-                <ul className='list-group playlist border border-primary'>
-                    <input
-                        type='text'
-                        placeholder='Search'
-                        className='form-control search'
-                        id='search'
-                        onChange={this.search}
-                    />
-                    {
-                        lists.map((list) => {
-                            return (
-                                <li
-                                    className={
-                                        this.state.activeId === list.id ?
-                                            'list-group-item active' :
-                                            'list-group-item'
+            <ul className='list-group playlist border border-primary'>
+                <input
+                    type='text'
+                    placeholder='Search'
+                    className='form-control search'
+                    id='search'
+                    onChange={this.search}
+                />
+                {
+                    lists.map((list) => {
+                        return (
+                            <li
+                                className={
+                                    this.state.activeId === list.id ?
+                                        'list-group-item playlist-item active' :
+                                        'list-group-item playlist-item'
+                                }
+                                key={list.id}
+                                data-video={list.url}
+                                data-title={list.title}
+                                onClick={
+                                    (event) => {
+                                        this.toggleClass(
+                                            event, list
+                                        );
                                     }
-                                    key={list.id}
-                                    data-video={list.url}
-                                    onClick={
-                                        (event) => {
-                                            this.toggleClass(
-                                                event, list.id, list.title
-                                            );
-                                        }
-                                    }
-                                >
-                                    {list.title}
-                                </li>
-                            );
-                        })
-                    }
-                    {
-                        this.state.nowPlaying ?
-                            <li className='list-group-item active nowplaying'>
-                                {this.state.nowPlaying}
-                            </li> :
-                            ''
-                    }
-                </ul>
-            </div>
+                                }
+                            >
+                                {list.title}
+                            </li>
+                        );
+                    })
+                }
+            </ul>
         );
     }
 
     search(event) {
         let lists = [];
 
-        if (new GetVideoList().searchFromList(event.target.value).length > 0) {
-            lists = new GetVideoList().searchFromList(event.target.value);
-        } else {
+        new GetVideoList().searchFromList(event.target.value).length > 0 ?
+            lists = new GetVideoList().searchFromList(event.target.value) :
             lists = new GetVideoList().getAllList();
-        }
 
         this.setState({
             lists,
         });
     }
 
-    toggleClass(event, listId, listTitle) {
+    toggleClass(event, list) {
         this.setState({
-            activeId: listId,
-            nowPlaying: 'Now Playing: ' + listTitle,
+            activeId: list.id,
         });
-        this.props.callBack(event);
+
+        let tempVideoHistory = Cookie.getCookie('videoHistory');
+
+        typeof tempVideoHistory !== 'undefined' ?
+            tempVideoHistory = JSON.parse(tempVideoHistory) :
+            tempVideoHistory = [];
+
+        !this.searchHistory(list.id, tempVideoHistory) ?
+            tempVideoHistory.push(list) :
+            '';
+
+        Cookie.setCookie(
+            'videoHistory',
+            JSON.stringify(tempVideoHistory),
+            7,
+            '/'
+        );
+
+        this.props.playVideo(event);
+    }
+
+    searchHistory(id, list) {
+        for (var i=0; i < list.length; i++) {
+            if (list[i].id === id) return true;
+        }
+
+        return false;
     }
 }
 
@@ -98,7 +113,7 @@ class VideoList extends React.Component {
  *  defining Proptype for the VideoList Class
  */
 VideoList.propTypes = {
-    callBack: PropTypes.func,
+    playVideo: PropTypes.func,
 };
 
 /*

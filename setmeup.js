@@ -7,6 +7,7 @@ module.exports = function(config) {
     this.alias = {
         SassPath: config.Path.resolve(config.Webpack_DIR, 'src/assets/scss/'),
         ModulesPath: config.Path.resolve(config.Webpack_DIR, 'src/assets/js/Modules'),
+        UtilitiesPath: config.Path.resolve(config.Webpack_DIR, 'src/assets/js/Utilities'),
         ComponentsPath: config.Path.resolve(config.Webpack_DIR, 'src/assets/js/Components'),
     };
 

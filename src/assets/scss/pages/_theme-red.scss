@@ -1,0 +1,45 @@
+body {
+    &.black-red {
+        background-color: $color-black;
+
+        .playlist {
+            background-color: $color-white;
+
+            .active {
+                background-color: $color-red;
+            }
+
+            .playlist-item {
+                &:hover {
+                    color: $color-white;
+                    background-color: $color-red;
+                }
+            }
+        }
+
+        .recently-played,
+        .theme-group {
+            .recently-played-item,
+            .theme-item {
+                background-color: $color-red;
+
+                a {
+                    background-color: $color-red;
+                }
+            }
+        }
+
+        .theme-group {
+            .theme-item {
+                a {
+                    color: $color-white;
+                    background-color: $color-red;
+                }
+            }
+        }
+
+        .page-title {
+            color: $color-white;
+        }
+    }
+}
