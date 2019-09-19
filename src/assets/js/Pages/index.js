@@ -8,46 +8,45 @@ require('SassPath/pages/index.scss');
  */
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+
+/*
+ *  All Reducers in this File
+ */
+import AppReducers from 'ReducersPath/AppReducers';
 
 /*
  *  All Usable React Reusable Components in this File
  */
-import RenderManager from 'ComponentsPath/RenderManager';
+import RenderContent from 'ComponentsPath/RenderContent';
 
-class Index {
+const Index = () => {
     /*
-     *  @constructor
-     *  all definition of variable should be done inside this
+     *  @render
+     *  all render logic should be done inside this
      */
-    constructor () {
-        /*
-         *  @streamName
-         *  gets value from location param
-         */
-        this.streamName = new URL(location.href).searchParams.get("streamName") ||
-            '';
-    }
+    const render = (store) => {
+        if (document.getElementById('app')) {
+            ReactDOM.render(
+                <Provider store={store}>
+                    <RenderContent />
+                </Provider>,
+                document.getElementById('app')
+            );
+        }
+    };
 
     /*
      *  @init
      *  all trigger of main function should be done inside this
      */
-    init () {
-        this.render();
-    }
+    const init = () => {
+        let store = createStore(AppReducers);
+        render(store);
+    };
 
-    /*
-     *  @render
-     *  all render logic should be done inside this
-     */
-    render () {
-        if (document.getElementById('app')) {
-            ReactDOM.render(
-                <RenderManager streamName={this.streamName} />,
-                document.getElementById('app')
-            );
-        }
-    }
-}
+    init();
+};
 
-new Index().init();
+new Index();

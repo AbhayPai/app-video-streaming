@@ -4,6 +4,9 @@
 import PropTypes from 'prop-types';
 import React, { useEffect } from 'react';
 import Cookie from "UtilitiesPath/Cookie";
+import { connect } from 'react-redux';
+
+import { mapStateToProps, mapDispatchToProps } from 'ActionsPath/MapToProps';
 
 /*
  *  Extending React Component
@@ -58,9 +61,9 @@ const ThemeManager = (props) => {
                 <a className='p-2' data-theme='white-blue' onClick={selectTheme}>White & Blue</a>
             </li>
             {
-                props.nowplaying ?
+                props.active.title !== '' ?
                     <li className={classNameThemeItem}>
-                        <a className='p-2'>Now Playing: {props.nowplaying}</a>
+                        <a className='p-2'>Now Playing: {props.active.title}</a>
                     </li> :
                     ''
             }
@@ -72,10 +75,10 @@ const ThemeManager = (props) => {
  *  defining Proptype for the ThemeManager Class
  */
 ThemeManager.propTypes = {
-    nowplaying: PropTypes.string,
+    active: PropTypes.object,
 };
 
 /*
  *  Export @ThemeManager
  */
-export default ThemeManager;
+export default connect(mapStateToProps, mapDispatchToProps)(ThemeManager);

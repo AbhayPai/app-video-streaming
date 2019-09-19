@@ -19,7 +19,7 @@ module.exports = {
 
     output: {
         filename: 'js/[name].' + CustomTimeHash + '.js',
-        path: Path.join(Webpack_DIR, 'web/')
+        path: Path.join(Webpack_DIR, './')
     },
 
     resolve: {
@@ -75,7 +75,13 @@ module.exports = {
             filter: ({name}) => !name.endsWith('.php')
         }),
 
-        new CleanWebpackPlugin(),
+        new CleanWebpackPlugin({
+            dry: true,
+            cleanOnceBeforeBuildPatterns: [
+                '!src/**/*',
+                '!node_modules/**/*',
+            ]
+        }),
 
         new UglifyJsPlugin({
             cache: false,

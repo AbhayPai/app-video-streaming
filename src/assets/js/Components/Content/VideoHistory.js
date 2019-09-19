@@ -1,22 +1,16 @@
 /*
  *  All Usable Libraries in this File
  */
-import PropTypes from 'prop-types';
 import React, { Suspense } from 'react';
-import Cookie from 'UtilitiesPath/Cookie';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
-/*
- *  Extending React Component
- */
+import { mapStateToProps, mapDispatchToProps } from 'ActionsPath/MapToProps';
+
 const VideoHistory = (props) => {
     let renderMarkup = '';
-    let videoHistory = Cookie.getCookie('videoHistory');
 
-    typeof videoHistory !== 'undefined' ?
-        videoHistory = JSON.parse(videoHistory) :
-        videoHistory = [];
-
-    videoHistory.length > 0 ?
+    props.listshistory.length > 0 ?
         renderMarkup = (
             <Suspense fallback={<div>Loading...</div>}>
                 <div className='col-12'>
@@ -27,14 +21,20 @@ const VideoHistory = (props) => {
                 <div className='col-12'>
                     <ul className='list-group d-block recently-played'>
                         {
-                            videoHistory.map((list) => {
+                            props.listshistory.map((list) => {
                                 return (
                                     <li
                                         className='list-group-item recently-played-item list-group-item-primary text-white d-inline-block mr-1 mb-1'
                                         key={list.id}
                                         data-title={list.title}
                                         data-video={list.url}
-                                        onClick={props.callBack}
+                                        onClick={
+                                            () => {
+                                                props.handleActiveList(
+                                                    list
+                                                );
+                                            }
+                                        }
                                     >
                                         {list.title}
                                     </li>
@@ -50,15 +50,10 @@ const VideoHistory = (props) => {
     return(renderMarkup);
 };
 
-/*
- *  defining Proptype for the VideoHistory Class
- */
 VideoHistory.propTypes = {
-    callBack: PropTypes.func,
+    active: PropTypes.object,
+    listshistory: PropTypes.array,
+    handleActiveList: PropTypes.func,
 };
 
-/*
- *  @VideoHistory
- *  Only class to export from this file
- */
-export default VideoHistory;
+export default connect(mapStateToProps, mapDispatchToProps)(VideoHistory);
