@@ -1,6 +1,6 @@
 import GetVideoList from 'ModulesPath/GetVideoList';
 import { initialState } from 'StatesPath/GlobalStates';
-import { SearchList, SetListHistory } from 'ModulesPath/ListHistory';
+import { GetListHistory, SearchList, SetListHistory, SaveListHistory } from 'ModulesPath/ListHistory';
 
 /*
  *  Example:-
@@ -13,26 +13,44 @@ const AppReducers = (state = initialState, action) => {
 
     const newState = Object.assign({}, state);
 
-    if (action.type === 'SEARCH_LIST') {
-        new GetVideoList().searchFromList(event.target.value).length > 0 ?
-            newState.lists = new GetVideoList().searchFromList(event.target.value) :
-            newState.lists = new GetVideoList().getAllList();
+    if (action.type === 'LIST_SEARCH') {
+        GetVideoList().searchFromList(event.target.value).length > 0 ?
+            newState.lists = GetVideoList().searchFromList(event.target.value) :
+            newState.lists = GetVideoList().getAllList();
     }
 
-    if (action.type === 'HANDLE_ACTIVE_LIST' &&
-        action.list.id !== newState.active.id) {
+    if (action.type === 'LIST_HISTORY') {
         if (!SearchList(action.list.id, state.listshistory)) {
             newState.listshistory = state.listshistory.concat(action.list);
         }
 
         newState.active = action.list;
         newState.active.videocategory = state.videocategory;
-        new SetListHistory(newState.active);
+        SetListHistory(newState.active);
     }
 
-    if (action.type === 'HANDLE_CATEGORY') {
+    if (action.type === 'LIST_DELETE') {
+        newState.listshistory = GetListHistory().filter(( obj ) => {
+            return obj.id !== action.listid;
+        });
+
+        newState.listshistory[0] ?
+            newState.active = newState.listshistory[0]:
+            newState.active = initialState.active;
+
+        SaveListHistory(newState.listshistory);
+    }
+
+    if (action.type === 'LIST_ACTIVE' &&
+        action.list.id !== newState.active.id) {
+        newState.active = action.list;
+        newState.active.videocategory = state.videocategory;
+    }
+
+    if (action.type === 'VIDEO_CATEGORY') {
         newState.videocategory = action.videocategory;
         newState.active.videocategory = action.videocategory;
+        newState.active.videocategory = state.videocategory;
     }
 
     return newState;

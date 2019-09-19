@@ -35,7 +35,7 @@ const VideoList = (props) => {
                             data-title={list.title}
                             onClick={
                                 () => {
-                                    props.handleActiveList(
+                                    props.handleActiveClass(
                                         list
                                     );
                                 }
@@ -54,7 +54,7 @@ VideoList.propTypes = {
     lists: PropTypes.array,
     active: PropTypes.object,
     handleSearchList: PropTypes.func,
-    handleActiveList: PropTypes.func,
+    handleActiveClass: PropTypes.func,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(VideoList);

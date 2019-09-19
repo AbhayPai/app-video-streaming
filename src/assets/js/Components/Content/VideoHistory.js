@@ -28,15 +28,28 @@ const VideoHistory = (props) => {
                                         key={list.id}
                                         data-title={list.title}
                                         data-video={list.url}
-                                        onClick={
-                                            () => {
-                                                props.handleActiveList(
-                                                    list
-                                                );
-                                            }
-                                        }
                                     >
-                                        {list.title}
+                                        <span
+                                            onClick={
+                                                () => {
+                                                    props.handleActiveClass(
+                                                        list
+                                                    );
+                                                }
+                                            }
+                                        >
+                                            {list.title}
+                                        </span>
+                                        <span
+                                            className='delete pl-2'
+                                            onClick={
+                                                () => {
+                                                    props.handleListDelete(list.id);
+                                                }
+                                            }
+                                        >
+                                            X
+                                        </span>
                                     </li>
                                 );
                             })
@@ -53,7 +66,8 @@ const VideoHistory = (props) => {
 VideoHistory.propTypes = {
     active: PropTypes.object,
     listshistory: PropTypes.array,
-    handleActiveList: PropTypes.func,
+    handleListDelete: PropTypes.func,
+    handleActiveClass: PropTypes.func,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(VideoHistory);

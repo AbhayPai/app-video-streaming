@@ -21,6 +21,10 @@ body {
             a {
                 background-color: $color-red;
             }
+
+            .delete:hover {
+                color: $color-blue;
+            }
         }
 
         .theme-group {

@@ -1,5 +1,14 @@
 import Cookie from "UtilitiesPath/Cookie";
 
+const SaveListHistory = (lists) => {
+    Cookie.setCookie(
+        'videoHistory',
+        JSON.stringify(lists),
+        7,
+        '/'
+    );
+};
+
 const GetListHistory =  () => {
     let tempVideoHistory = Cookie.getCookie('videoHistory');
 
@@ -25,16 +34,12 @@ const SetListHistory = (list) => {
         tempVideoHistory.push(list) :
         '';
 
-    Cookie.setCookie(
-        'videoHistory',
-        JSON.stringify(tempVideoHistory),
-        7,
-        '/'
-    );
+    SaveListHistory(tempVideoHistory);
 };
 
 export {
     SearchList,
     GetListHistory,
     SetListHistory,
+    SaveListHistory,
 };

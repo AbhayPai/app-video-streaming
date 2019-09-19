@@ -17,12 +17,20 @@ const VideoPlayer = (props) => {
             url={props.active.url}
             width='100%'
             height='400px'
+            onPlay={
+                () => {
+                    props.handleListHistory(
+                        props.active
+                    );
+                }
+            }
         />
     );
 };
 
 VideoPlayer.propTypes = {
     active: PropTypes.object,
+    handleListHistory: PropTypes.func,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(VideoPlayer);

@@ -17,19 +17,31 @@ const mapDispatchToProps = (dispatch) => {
         handleSearchList: (value) => dispatch(
             {
                 value,
-                type: 'SEARCH_LIST',
+                type: 'LIST_SEARCH',
             }
         ),
-        handleActiveList: (list) => dispatch(
+        handleListHistory: (list) => dispatch(
             {
                 list,
-                type: 'HANDLE_ACTIVE_LIST',
+                type: 'LIST_HISTORY',
+            }
+        ),
+        handleListDelete: (listid) => dispatch(
+            {
+                listid,
+                type: 'LIST_DELETE'
+            }
+        ),
+        handleActiveClass: (list) => dispatch(
+            {
+                list,
+                type: 'LIST_ACTIVE'
             }
         ),
         handleVideoCategory: (event) => dispatch(
             {
                 videocategory: event.target.getAttribute('data-category'),
-                type: 'HANDLE_CATEGORY'
+                type: 'VIDEO_CATEGORY'
             }
         ),
     };

@@ -54,6 +54,10 @@ body {
         a {
             background-color: $color-blue;
         }
+
+        .delete:hover {
+            color: $color-red;
+        }
     }
 }
 
