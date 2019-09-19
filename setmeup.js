@@ -6,14 +6,17 @@ module.exports = function(config) {
 
     this.alias = {
         SassPath: config.Path.resolve(config.Webpack_DIR, 'src/assets/scss/'),
+        StatesPath: config.Path.resolve(config.Webpack_DIR, 'src/assets/js/States'),
         ModulesPath: config.Path.resolve(config.Webpack_DIR, 'src/assets/js/Modules'),
+        ActionsPath: config.Path.resolve(config.Webpack_DIR, 'src/assets/js/Actions'),
+        ReducersPath: config.Path.resolve(config.Webpack_DIR, 'src/assets/js/Reducers'),
         UtilitiesPath: config.Path.resolve(config.Webpack_DIR, 'src/assets/js/Utilities'),
         ComponentsPath: config.Path.resolve(config.Webpack_DIR, 'src/assets/js/Components'),
     };
 
     this.copyFiles = [
         {
-            to: config.Path.join(config.Webpack_DIR, 'web/', 'images/'),
+            to: config.Path.join(config.Webpack_DIR, 'images/'),
             from: config.Path.join(config.Webpack_DIR, 'src/assets/images/')
         }
     ];
@@ -38,7 +41,6 @@ module.exports = function(config) {
                 ),
                 filename: config.Path.join(
                     config.Webpack_DIR,
-                    'web/',
                     'index.html'
                 ),
                 assets: {

@@ -4,28 +4,22 @@ body {
 
         .playlist {
             background-color: $color-white;
-
-            .active {
-                background-color: $color-red;
-            }
-
-            .playlist-item {
-                &:hover {
-                    color: $color-white;
-                    background-color: $color-red;
-                }
-            }
         }
 
-        .recently-played,
-        .theme-group {
-            .recently-played-item,
-            .theme-item {
-                background-color: $color-red;
+        .category .category-item.active,
+        .category .category-item:hover,
+        .playlist .playlist-item:hover,
+        .playlist .active {
+            color: $color-white;
+            background-color: $color-red;
+        }
 
-                a {
-                    background-color: $color-red;
-                }
+        .recently-played .recently-played-item,
+        .theme-group .theme-item {
+            background-color: $color-red;
+
+            a {
+                background-color: $color-red;
             }
         }
 

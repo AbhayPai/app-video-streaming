@@ -6,6 +6,18 @@ body {
     // background-image: url($image-ap-logo);
 }
 
+.category {
+    &-item {
+        cursor: pointer;
+
+        .active,
+        &:hover {
+            color: $color-white;
+            background-color: $color-blue;
+        }
+    }
+}
+
 .playlist {
     min-height: 400px;
     max-height: 400px;
