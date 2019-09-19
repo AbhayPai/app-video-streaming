@@ -1,7 +1,7 @@
 /*
  *  All Usable Libraries in this File
  */
-import React, { Suspense } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
@@ -12,7 +12,7 @@ const VideoHistory = (props) => {
 
     props.listshistory.length > 0 ?
         renderMarkup = (
-            <Suspense fallback={<div>Loading...</div>}>
+            <React.Fragment>
                 <div className='col-12'>
                     <h1 className='display-4 mb-3 page-title'>
                         Recently Played Video.
@@ -56,7 +56,7 @@ const VideoHistory = (props) => {
                         }
                     </ul>
                 </div>
-            </Suspense>
+            </React.Fragment>
         ) :
         '' ; // Do Nothing.
 

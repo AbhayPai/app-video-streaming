@@ -12,7 +12,7 @@ import { mapStateToProps, mapDispatchToProps } from 'ActionsPath/MapToProps';
  *  Extending React Component
  */
 const ThemeManager = (props) => {
-    const classNameThemeItem = 'd-none list-group-item list-group-item-primary text-white d-inline-block mr-1 theme-item p-0';
+    const classNameThemeItem = 'list-group-item list-group-item-primary text-white d-inline-block mr-1 theme-item p-0 border border-0';
 
     useEffect(() => {
         document.body.setAttribute(
@@ -54,7 +54,7 @@ const ThemeManager = (props) => {
 
 
     return (
-        <ul className='fixed-bottom-right list-group d-block theme-group'>
+        <ul className='fixed-bottom fixed-bottom-right list-group d-block theme-group'>
             {
                 props.active.title !== '' ?
                     <li className={classNameThemeItem}>

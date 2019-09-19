@@ -28,8 +28,8 @@ const VideoCategory = (props) => {
                             key={category.id}
                             className={
                                 props.active.videocategory === category.name ?
-                                    'list-group-item category-item d-inline-block mr-1 mb-1 active' :
-                                    'list-group-item category-item d-inline-block mr-1 mb-1'
+                                    'list-group-item category-item d-inline-block border border-0 mr-1 mb-1 active' :
+                                    'list-group-item category-item d-inline-block border border-0 mr-1 mb-1'
                             }
                             data-category={category.name}
                             onClick={

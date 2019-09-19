@@ -10,12 +10,12 @@ import { mapStateToProps, mapDispatchToProps } from 'ActionsPath/MapToProps';
 /*
  *  All Usable React Reusable Components in this File
  */
+import Navbar from 'ComponentsPath/Header/Navbar';
+import VideoList from 'ComponentsPath/Content/VideoList';
+import VideoPlayer from 'ComponentsPath/Content/VideoPlayer';
 import ThemeManager from 'ComponentsPath/Footer/ThemeManager';
-
-import TestVideoList from 'ComponentsPath/Content/VideoList';
-import TestVideoPlayer from 'ComponentsPath/Content/VideoPlayer';
-import TestVideoHistory from 'ComponentsPath/Content/VideoHistory';
-import TestVideoCategory from 'ComponentsPath/Content/VideoCategory';
+import VideoHistory from 'ComponentsPath/Content/VideoHistory';
+import VideoCategory from 'ComponentsPath/Content/VideoCategory';
 
 /*
  *  Extending React Component
@@ -23,6 +23,7 @@ import TestVideoCategory from 'ComponentsPath/Content/VideoCategory';
 const RenderContent = (props) => {
     return(
         <React.Fragment>
+            <Navbar />
             <div className='container-fluid'>
                 <div className='row mb-3'>
                     <div className='col-12'>
@@ -31,7 +32,7 @@ const RenderContent = (props) => {
                         </h1>
                     </div>
                     <div className='col-12'>
-                        <TestVideoCategory />
+                        <VideoCategory />
                     </div>
                 </div>
                 {
@@ -44,14 +45,14 @@ const RenderContent = (props) => {
                                     </h1>
                                 </div>
                                 <div className='col-4 col-sm-4'>
-                                    <TestVideoList />
+                                    <VideoList />
                                 </div>
                                 <div className='col-8 col-sm-8'>
-                                    <TestVideoPlayer />
+                                    <VideoPlayer />
                                 </div>
                             </div>
                             <div className='row mb-3'>
-                                <TestVideoHistory />
+                                <VideoHistory />
                             </div>
                         </React.Fragment> :
                         ''
