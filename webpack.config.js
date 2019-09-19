@@ -76,8 +76,12 @@ module.exports = {
         }),
 
         new CleanWebpackPlugin({
-            dry: true,
             cleanOnceBeforeBuildPatterns: [
+                'css/**/*',
+                'js/**/*',
+                'images/**/*',
+                'index.html',
+                'manifest.json',
                 '!src/**/*',
                 '!node_modules/**/*',
             ]
