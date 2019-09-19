@@ -11,7 +11,7 @@ const AppReducers = (state = initialState, action) => {
         return {};
     }
 
-    const newState = Object.assign({}, state);
+    const newState = {...state};
 
     if (action.type === 'LIST_SEARCH') {
         GetVideoList().searchFromList(event.target.value).length > 0 ?
