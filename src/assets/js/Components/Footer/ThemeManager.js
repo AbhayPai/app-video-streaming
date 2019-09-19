@@ -12,6 +12,8 @@ import { mapStateToProps, mapDispatchToProps } from 'ActionsPath/MapToProps';
  *  Extending React Component
  */
 const ThemeManager = (props) => {
+    const classNameThemeItem = 'd-none list-group-item list-group-item-primary text-white d-inline-block mr-1 theme-item p-0';
+
     useEffect(() => {
         document.body.setAttribute(
             'class',
@@ -50,23 +52,22 @@ const ThemeManager = (props) => {
         );
     };
 
-    const classNameThemeItem = 'list-group-item list-group-item-primary text-white d-inline-block mr-1 theme-item p-0';
 
     return (
-        <ul className='fixed-bottom list-group d-block theme-group'>
+        <ul className='fixed-bottom-right list-group d-block theme-group'>
+            {
+                props.active.title !== '' ?
+                    <li className={classNameThemeItem}>
+                        <a className='p-2'>On Player: {props.active.title}</a>
+                    </li> :
+                    ''
+            }
             <li className={classNameThemeItem}>
                 <a className='p-2' data-theme='black-red' onClick={selectTheme}>Black & Red</a>
             </li>
             <li className={classNameThemeItem}>
                 <a className='p-2' data-theme='white-blue' onClick={selectTheme}>White & Blue</a>
             </li>
-            {
-                props.active.title !== '' ?
-                    <li className={classNameThemeItem}>
-                        <a className='p-2'>Now Playing: {props.active.title}</a>
-                    </li> :
-                    ''
-            }
         </ul>
     );
 };

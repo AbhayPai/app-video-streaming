@@ -32,7 +32,7 @@ const VideoHistory = (props) => {
                                         <span
                                             onClick={
                                                 () => {
-                                                    props.handleActiveClass(
+                                                    props.handleListActive(
                                                         list
                                                     );
                                                 }
@@ -67,7 +67,7 @@ VideoHistory.propTypes = {
     active: PropTypes.object,
     listshistory: PropTypes.array,
     handleListDelete: PropTypes.func,
-    handleActiveClass: PropTypes.func,
+    handleListActive: PropTypes.func,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(VideoHistory);

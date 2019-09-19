@@ -17,7 +17,7 @@ const VideoList = (props) => {
                 id='searchs'
                 onChange={
                     (event) => {
-                        props.handleSearchList(event.target.value);
+                        props.handleListSearch(event.target.value);
                     }
                 }
             />
@@ -35,7 +35,7 @@ const VideoList = (props) => {
                             data-title={list.title}
                             onClick={
                                 () => {
-                                    props.handleActiveClass(
+                                    props.handleListActive(
                                         list
                                     );
                                 }
@@ -53,8 +53,8 @@ const VideoList = (props) => {
 VideoList.propTypes = {
     lists: PropTypes.array,
     active: PropTypes.object,
-    handleSearchList: PropTypes.func,
-    handleActiveClass: PropTypes.func,
+    handleListSearch: PropTypes.func,
+    handleListActive: PropTypes.func,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(VideoList);

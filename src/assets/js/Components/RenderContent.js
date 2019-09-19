@@ -56,8 +56,8 @@ const RenderContent = (props) => {
                         </React.Fragment> :
                         ''
                 }
-                <ThemeManager />
             </div>
+            <ThemeManager />
         </React.Fragment>
     );
 };

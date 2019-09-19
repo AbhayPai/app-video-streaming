@@ -14,7 +14,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        handleSearchList: (value) => dispatch(
+        handleListSearch: (value) => dispatch(
             {
                 value,
                 type: 'LIST_SEARCH',
@@ -32,7 +32,7 @@ const mapDispatchToProps = (dispatch) => {
                 type: 'LIST_DELETE'
             }
         ),
-        handleActiveClass: (list) => dispatch(
+        handleListActive: (list) => dispatch(
             {
                 list,
                 type: 'LIST_ACTIVE'
